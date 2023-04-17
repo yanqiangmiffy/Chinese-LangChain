@@ -20,5 +20,5 @@
 ## ❤️引用
 
 - webui参考：https://github.com/thomas-yanxin/LangChain-ChatGLM-Webui
-- knowledge文档参考：https://github.com/imClumsyPanda/langchain-ChatGLM
+- knowledge问答参考：https://github.com/imClumsyPanda/langchain-ChatGLM
 - LLM模型：https://github.com/THUDM/ChatGLM-6B
