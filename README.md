@@ -19,7 +19,7 @@
 * [ ] 支持检索生成结果与原始LLM生成结果对比
 
 ## 交流
-
+欢迎多提建议、Bad cases，目前尚不完善，欢迎进群及时交流，也欢迎大家多提PR
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="300px">
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="300px">
 
