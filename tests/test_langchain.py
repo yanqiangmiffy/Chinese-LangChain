@@ -4,7 +4,7 @@ from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 
-embedding_model_name = '/home/searchgpt/pretrained_models/ernie-gram-zh'
+embedding_model_name = 'pretrained_models/ernie-gram-zh'
 docs_path = 'docs'
 embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
 
