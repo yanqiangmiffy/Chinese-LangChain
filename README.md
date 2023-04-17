@@ -15,8 +15,8 @@
 ## 🔨 TODO
 * [x] 支持上下文
 * [x] 支持知识增量更新
-* [ ] 支持检索结果与LLM生成结果对比
-
+* [x] 支持检索结果与LLM生成结果对比
+* [ ] 支持检索生成结果与原始LLM生成结果对比
 ## ❤️引用
 
 - webui参考：https://github.com/thomas-yanxin/LangChain-ChatGLM-Webui

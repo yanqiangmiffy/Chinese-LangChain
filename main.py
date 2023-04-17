@@ -70,7 +70,11 @@ def predict(input,
     )
     print(resp)
     history.append((input, resp['result']))
-    return '', history, history
+
+    search_text = ''
+    for idx, source in enumerate(resp['source_documents'][:2]):
+        search_text += f'【搜索结果{idx}：】{source.page_content}\n\n'
+    return '', history, history, search_text
 
 
 block = gr.Blocks()
@@ -108,20 +112,23 @@ with block as demo:
                         inputs=file,
                         outputs=selectFile)
         with gr.Column(scale=4):
-            chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
-            message = gr.Textbox(label='请输入问题')
             state = gr.State()
             with gr.Row():
-                clear_history = gr.Button("🧹 清除历史对话")
-                send = gr.Button("🚀 发送")
-
+                with gr.Column(scale=4):
+                    chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
+                    message = gr.Textbox(label='请输入问题')
+                    with gr.Row():
+                        clear_history = gr.Button("🧹 清除历史对话")
+                        send = gr.Button("🚀 发送")
+                with gr.Column(scale=2):
+                    search = gr.Textbox(label='搜索结果')
                 # 发送按钮 提交
                 send.click(predict,
                            inputs=[
                                message, large_language_model,
                                embedding_model, state
                            ],
-                           outputs=[message, chatbot, state])
+                           outputs=[message, chatbot, state, search])
 
                 # 清空历史对话按钮 提交
                 clear_history.click(fn=clear_session,
@@ -135,7 +142,6 @@ with block as demo:
                                    message, large_language_model,
                                    embedding_model, state
                                ],
-                               outputs=[message, chatbot, state])
-        with gr.Column(scale=2):
-            message = gr.Textbox(label='搜索结果')
+                               outputs=[message, chatbot, state, search])
+
 demo.queue().launch(server_name='0.0.0.0', server_port=8008, share=False)
