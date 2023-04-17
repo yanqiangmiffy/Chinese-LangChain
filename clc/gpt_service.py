@@ -53,15 +53,10 @@ class ChatGLMService(LLM):
             model_name_or_path,
             trust_remote_code=True
         )
-        self.model = (
-            AutoModel.from_pretrained(
-                model_name_or_path,
-                trust_remote_code=True)
-                .half()
-                .cuda()
-        )
-
+        self.model = AutoModel.from_pretrained(model_name_or_path, trust_remote_code=True).half().cuda()
+        self.model=self.model.eval()
 # if __name__ == '__main__':
 #     config=LangChainCFG()
 #     chatLLM = ChatGLMService()
 #     chatLLM.load_model(model_name_or_path=config.llm_model_name)
+

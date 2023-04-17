@@ -1,15 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 _*-
-"""
-@author:quincy qiang
-@license: Apache Licence
-@file: main.py
-@time: 2023/04/17
-@contact: yanqiangmiffy@gamil.com
-@software: PyCharm
-@description: coding..
-"""
-
 import os
 import shutil
 
@@ -17,11 +5,13 @@ import gradio as gr
 
 from clc.langchain_application import LangChainApplication
 
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+
 
 # 修改成自己的配置！！！
 class LangChainCFG:
-    llm_model_name = '../../pretrained_models/chatglm-6b'  # 本地模型文件 or huggingface远程仓库
-    embedding_model_name = '../../pretrained_models/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
+    llm_model_name = 'THUDM/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
+    embedding_model_name = 'GanymedeNil/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
     vector_store_path = './cache'
     docs_path = './docs'
 
@@ -58,22 +48,23 @@ def predict(input,
             large_language_model,
             embedding_model,
             history=None):
-    print(large_language_model, embedding_model)
+    # print(large_language_model, embedding_model)
+    print(input)
     if history == None:
         history = []
     resp = application.get_knowledge_based_answer(
         query=input,
-        history_len=5,
+        history_len=1,
         temperature=0.1,
         top_p=0.9,
         chat_history=history
     )
-    print(resp)
     history.append((input, resp['result']))
-
     search_text = ''
     for idx, source in enumerate(resp['source_documents'][:2]):
-        search_text += f'【搜索结果{idx}：】{source.page_content}\n\n'
+        sep = f'----------【搜索结果{idx}：】---------------\n'
+        search_text += f'{sep}\n{source.page_content}\n\n'
+    print(search_text)
     return '', history, history, search_text
 
 
@@ -83,6 +74,8 @@ with block as demo:
         <center><font size=3>
         </center></font>
         """)
+    state = gr.State()
+
     with gr.Row():
         with gr.Column(scale=1):
             embedding_model = gr.Dropdown([
@@ -112,7 +105,6 @@ with block as demo:
                         inputs=file,
                         outputs=selectFile)
         with gr.Column(scale=4):
-            state = gr.State()
             with gr.Row():
                 with gr.Column(scale=4):
                     chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
@@ -122,26 +114,27 @@ with block as demo:
                         send = gr.Button("🚀 发送")
                 with gr.Column(scale=2):
                     search = gr.Textbox(label='搜索结果')
-                # 发送按钮 提交
-                send.click(predict,
-                           inputs=[
-                               message, large_language_model,
-                               embedding_model, state
-                           ],
-                           outputs=[message, chatbot, state, search])
 
-                # 清空历史对话按钮 提交
-                clear_history.click(fn=clear_session,
-                                    inputs=[],
-                                    outputs=[chatbot, state],
-                                    queue=False)
+        # 发送按钮 提交
+        send.click(predict,
+                   inputs=[
+                       message, large_language_model,
+                       embedding_model, state
+                   ],
+                   outputs=[message, chatbot, state, search])
 
-                # 输入框 回车
-                message.submit(predict,
-                               inputs=[
-                                   message, large_language_model,
-                                   embedding_model, state
-                               ],
-                               outputs=[message, chatbot, state, search])
+        # 清空历史对话按钮 提交
+        clear_history.click(fn=clear_session,
+                            inputs=[],
+                            outputs=[chatbot, state],
+                            queue=False)
 
-demo.queue().launch(server_name='0.0.0.0', server_port=8008, share=False)
+        # 输入框 回车
+        message.submit(predict,
+                       inputs=[
+                           message, large_language_model,
+                           embedding_model, state
+                       ],
+                       outputs=[message, chatbot, state, search])
+
+demo.queue(concurrency_count=2).launch(server_name='0.0.0.0', server_port=8888, share=False,show_error=True, enable_queue=True)
