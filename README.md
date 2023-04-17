@@ -19,8 +19,9 @@
 * [ ] 支持检索生成结果与原始LLM生成结果对比
 
 ## 交流
+width="100px"
+<img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="100px">
 
-![c6a443f97c7042962f289222afc242f](https://user-images.githubusercontent.com/15925090/232448694-f98c8538-4a62-4777-9dbb-d5742443feea.jpg)
 
 ## ❤️引用
 
