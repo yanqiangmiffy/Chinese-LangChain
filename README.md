@@ -2,6 +2,8 @@
 
 > Chinese-LangChain：中文langchain项目，基于ChatGLM-6b+langchain实现本地化知识库检索与智能答案生成
 
+## 🔥 效果演示
+
 ## 🚀 特性
 
 - 2023/04/17 支持多种文档上传与内容解析：pdf、docx，ppt等
