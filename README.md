@@ -7,12 +7,19 @@
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
 
 ## 🚀 特性
+
 - 🚀 2023/04/18 webui增加知识库选择功能
 - 🚀 2023/04/18 修复推理预测超时5s报错问题
-- 🎉 2023/04/17  支持多种文档上传与内容解析：pdf、docx，ppt等
+- 🎉 2023/04/17 支持多种文档上传与内容解析：pdf、docx，ppt等
 - 🎉 2023/04/17 支持知识增量更新
 
 [//]: # (- 支持检索结果与LLM生成结果对比)
+
+## 🧰 知识库
+
+| 知识库数据  |FAISS向量|
+|--------|----|
+|💹 [大规模金融研报知识图谱](http://openkg.cn/dataset/fr2kg)|链接：https://pan.baidu.com/s/1FcIH5Fi3EfpS346DnDu51Q?pwd=ujjv 提取码：ujjv |
 
 ## 🔨 TODO
 
@@ -26,6 +33,7 @@
 * [ ] 增加非LangChain策略
 
 ## 交流
+
 欢迎多提建议、Bad cases，目前尚不完善，欢迎进群及时交流，也欢迎大家多提PR
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="300px">
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="300px">

@@ -19,6 +19,7 @@ from langchain.vectorstores import FAISS
 
 class SourceService(object):
     def __init__(self, config):
+        self.vector_store = None
         self.config = config
         self.embeddings = HuggingFaceEmbeddings(model_name=self.config.embedding_model_name)
         self.docs_path = self.config.docs_path
@@ -45,8 +46,11 @@ class SourceService(object):
         self.vector_store.add_documents(doc)
         self.vector_store.save_local(self.vector_store_path)
 
-    def load_vector_store(self):
-        self.vector_store = FAISS.load_local(self.vector_store_path, self.embeddings)
+    def load_vector_store(self, path):
+        if path is None:
+            self.vector_store = FAISS.load_local(self.vector_store_path, self.embeddings)
+        else:
+            self.vector_store = FAISS.load_local(path, self.embeddings)
         return self.vector_store
 
 # if __name__ == '__main__':

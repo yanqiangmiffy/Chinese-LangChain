@@ -12,6 +12,7 @@
 
 from langchain.chains import RetrievalQA
 from langchain.prompts.prompt import PromptTemplate
+
 from clc.gpt_service import ChatGLMService
 from clc.source_service import SourceService
 
@@ -22,7 +23,15 @@ class LangChainApplication(object):
         self.llm_service = ChatGLMService()
         self.llm_service.load_model(model_name_or_path=self.config.llm_model_name)
         self.source_service = SourceService(config)
-        self.source_service.init_source_vector()
+        if self.config.kg_vector_stores is None:
+            print("init a source vector store")
+            self.source_service.init_source_vector()
+        else:
+            print("load zh_wikipedia source vector store ")
+            try:
+                self.source_service.load_vector_store(self.config.kg_vector_stores['初始化知识库'])
+            except Exception as e:
+                self.source_service.init_source_vector()
 
     def get_knowledge_based_answer(self, query,
                                    history_len=5,
@@ -45,7 +54,7 @@ class LangChainApplication(object):
         knowledge_chain = RetrievalQA.from_llm(
             llm=self.llm_service,
             retriever=self.source_service.vector_store.as_retriever(
-                search_kwargs={"k": 2}),
+                search_kwargs={"k": 4}),
             prompt=prompt)
         knowledge_chain.combine_documents_chain.document_prompt = PromptTemplate(
             input_variables=["page_content"], template="{page_content}")
