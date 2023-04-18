@@ -5,7 +5,7 @@ import gradio as gr
 
 from clc.langchain_application import LangChainApplication
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = '1'
 
 
 # 修改成自己的配置！！！
