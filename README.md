@@ -7,6 +7,7 @@
 ## 🔥 效果演示
 
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
+![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo_new.png)
 
 ## 🚀 特性
 
