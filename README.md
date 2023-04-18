@@ -2,12 +2,15 @@
 
 > Chinese-LangChain：中文langchain项目，基于ChatGLM-6b+langchain实现本地化知识库检索与智能答案生成
 
+俗称：小必应，Q.Talk，强聊，QiangTalk
+
 ## 🔥 效果演示
 
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
 
 ## 🚀 特性
 
+- 🚀 2023/04/19 增加web search功能，需要确保网络畅通！
 - 🚀 2023/04/18 webui增加知识库选择功能
 - 🚀 2023/04/18 修复推理预测超时5s报错问题
 - 🎉 2023/04/17 支持多种文档上传与内容解析：pdf、docx，ppt等
@@ -29,7 +32,7 @@
 * [x] 支持检索结果与LLM生成结果对比
 * [ ] 支持检索生成结果与原始LLM生成结果对比
 * [ ] 检索结果过滤与排序
-* [ ] 互联网检索结果接入
+* [x] 互联网检索结果接入
 * [ ] 模型初始化有问题
 * [ ] 增加非LangChain策略
 

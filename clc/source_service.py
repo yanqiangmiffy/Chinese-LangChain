@@ -12,6 +12,8 @@
 
 import os
 
+from duckduckgo_search import ddg
+from duckduckgo_search.utils import SESSION
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
@@ -53,6 +55,18 @@ class SourceService(object):
             self.vector_store = FAISS.load_local(path, self.embeddings)
         return self.vector_store
 
+    def search_web(self, query):
+
+        SESSION.proxies = {
+            "http": f"socks5h://localhost:7890",
+            "https": f"socks5h://localhost:7890"
+        }
+        results = ddg(query)
+        web_content = ''
+        if results:
+            for result in results:
+                web_content += result['body']
+        return web_content
 # if __name__ == '__main__':
 #     config = LangChainCFG()
 #     source_service = SourceService(config)

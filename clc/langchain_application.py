@@ -37,13 +37,24 @@ class LangChainApplication(object):
                                    history_len=5,
                                    temperature=0.1,
                                    top_p=0.9,
+                                   top_k=4,
+                                   web_content='',
                                    chat_history=[]):
-        prompt_template = """基于以下已知信息，简洁和专业的来回答用户的问题。
-                            如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
-                            已知内容:
-                            {context}
-                            问题:
-                            {question}"""
+        if web_content:
+            prompt_template = f"""基于以下已知信息，简洁和专业的来回答用户的问题。
+                                如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
+                                已知网络检索内容：{web_content}""" + """
+                                已知内容:
+                                {context}
+                                问题:
+                                {question}"""
+        else:
+            prompt_template = """基于以下已知信息，简洁和专业的来回答用户的问题。
+                                            如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
+                                            已知内容:
+                                            {context}
+                                            问题:
+                                            {question}"""
         prompt = PromptTemplate(template=prompt_template,
                                 input_variables=["context", "question"])
         self.llm_service.history = chat_history[-history_len:] if history_len > 0 else []
@@ -54,7 +65,7 @@ class LangChainApplication(object):
         knowledge_chain = RetrievalQA.from_llm(
             llm=self.llm_service,
             retriever=self.source_service.vector_store.as_retriever(
-                search_kwargs={"k": 4}),
+                search_kwargs={"k": top_k}),
             prompt=prompt)
         knowledge_chain.combine_documents_chain.document_prompt = PromptTemplate(
             input_variables=["page_content"], template="{page_content}")

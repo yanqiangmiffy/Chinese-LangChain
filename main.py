@@ -5,19 +5,19 @@ import gradio as gr
 
 from clc.langchain_application import LangChainApplication
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '1'
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 
 # 修改成自己的配置！！！
 class LangChainCFG:
-    llm_model_name = '../../pretrained_models/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
-    embedding_model_name = '../../pretrained_models/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
+    llm_model_name = 'THUDM/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
+    embedding_model_name = 'GanymedeNil/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
     vector_store_path = './cache'
     docs_path = './docs'
     kg_vector_stores = {
-        '中文维基百科': '/root/GoMall/Knowledge-ChatGLM/cache/zh_wikipedia',
-        '大规模金融研报知识图谱': '/root/GoMall/Knowledge-ChatGLM/cache/financial_research_reports',
-        '初始化知识库': '/root/GoMall/Knowledge-ChatGLM/cache',
+        '中文维基百科': './cache/zh_wikipedia',
+        '大规模金融研报知识图谱': '.cache/financial_research_reports',
+        '初始化知识库': '.cache',
     }  # 可以替换成自己的知识库，如果没有需要设置为None
     # kg_vector_stores=None
 
@@ -62,24 +62,35 @@ def clear_session():
 def predict(input,
             large_language_model,
             embedding_model,
+            top_k,
+            use_web,
             history=None):
     # print(large_language_model, embedding_model)
     print(input)
     if history == None:
         history = []
+
+    if use_web == '使用':
+        web_content = application.source_service.search_web(query=input)
+    else:
+        web_content = ''
     resp = application.get_knowledge_based_answer(
         query=input,
         history_len=1,
         temperature=0.1,
         top_p=0.9,
+        top_k=top_k,
+        web_content=web_content,
         chat_history=history
     )
     history.append((input, resp['result']))
     search_text = ''
     for idx, source in enumerate(resp['source_documents'][:4]):
-        sep = f'----------【搜索结果{idx+1}：】---------------\n'
+        sep = f'----------【搜索结果{idx + 1}：】---------------\n'
         search_text += f'{sep}\n{source.page_content}\n\n'
     print(search_text)
+    search_text += "----------【网络检索内容】-----------\n"
+    search_text += web_content
     return '', history, history, search_text
 
 
@@ -108,20 +119,22 @@ with block as demo:
 
             top_k = gr.Slider(1,
                               20,
-                              value=2,
+                              value=4,
                               step=1,
-                              label="向量匹配 top k",
+                              label="检索top-k文档",
                               interactive=True)
             kg_name = gr.Radio(['中文维基百科',
                                 '大规模金融研报知识图谱',
                                 '初始化知识库'
                                 ],
                                label="知识库",
-                               value='中文维基百科',
+                               value='初始化知识库',
                                interactive=True)
             set_kg_btn = gr.Button("重新加载知识库")
 
-            file = gr.File(label="将文件上传到数据库",
+            use_web = gr.Radio(["使用", "不使用"], label="web search", info="是否使用网络搜索，使用时确保网络通常")
+
+            file = gr.File(label="将文件上传到知识库库，内容要尽量匹配",
                            visible=True,
                            file_types=['.txt', '.md', '.docx', '.pdf']
                            )
@@ -149,7 +162,9 @@ with block as demo:
         send.click(predict,
                    inputs=[
                        message, large_language_model,
-                       embedding_model, state
+                       embedding_model, top_k, use_web,
+
+                       state
                    ],
                    outputs=[message, chatbot, state, search])
 
@@ -163,7 +178,8 @@ with block as demo:
         message.submit(predict,
                        inputs=[
                            message, large_language_model,
-                           embedding_model, state
+                           embedding_model, top_k, use_web,
+                           state
                        ],
                        outputs=[message, chatbot, state, search])
     gr.Markdown("""提醒：<br>
