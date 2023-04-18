@@ -4,7 +4,7 @@
 
 ## 🔥 效果演示
 
-![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/result.png)
+![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
 
 ## 🚀 特性
 
@@ -22,6 +22,7 @@
 * [ ] 检索结果过滤与排序
 * [ ] 互联网检索结果接入
 * [ ] 模型初始化有问题
+* [ ] 增加非LangChain策略
 
 ## 交流
 欢迎多提建议、Bad cases，目前尚不完善，欢迎进群及时交流，也欢迎大家多提PR

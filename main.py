@@ -10,8 +10,8 @@ os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 # 修改成自己的配置！！！
 class LangChainCFG:
-    llm_model_name = 'THUDM/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
-    embedding_model_name = 'GanymedeNil/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
+    llm_model_name = '../../pretrained_models/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
+    embedding_model_name = '../../pretrained_models/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
     vector_store_path = './cache'
     docs_path = './docs'
 
@@ -91,19 +91,24 @@ with block as demo:
                 label="large language model",
                 value="ChatGLM-6B-int4")
 
-            with gr.Tab("select"):
-                selectFile = gr.Dropdown(file_list,
-                                         label="content file",
-                                         interactive=True,
-                                         value=file_list[0] if len(file_list) > 0 else None)
-            with gr.Tab("upload"):
-                file = gr.File(label="请上传知识库文件",
-                               file_types=['.txt', '.md', '.docx', '.pdf']
-                               )
+            top_k = gr.Slider(1,
+                              20,
+                              value=2,
+                              step=1,
+                              label="向量匹配 top k",
+                              interactive=True)
+            kg_name = gr.Radio(['中文维基百科', '百度百科数据', '坦克世界'],
+                               label="知识库",
+                               value='中文维基百科',
+                               interactive=True)
+            file = gr.File(label="将文件上传到数据库",
+                           visible=True,
+                           file_types=['.txt', '.md', '.docx', '.pdf']
+                           )
 
             file.upload(upload_file,
                         inputs=file,
-                        outputs=selectFile)
+                        outputs=None)
         with gr.Column(scale=4):
             with gr.Row():
                 with gr.Column(scale=4):
@@ -137,4 +142,11 @@ with block as demo:
                        ],
                        outputs=[message, chatbot, state, search])
 
-demo.queue(concurrency_count=2).launch(server_name='0.0.0.0', server_port=8888, share=False,show_error=True, enable_queue=True)
+demo.queue(concurrency_count=2).launch(
+    server_name='0.0.0.0',
+    server_port=8888,
+    share=False,
+    show_error=True,
+    debug=True,
+    enable_queue=True
+)

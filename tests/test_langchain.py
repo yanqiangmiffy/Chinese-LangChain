@@ -4,8 +4,8 @@ from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 
-embedding_model_name = 'pretrained_models/ernie-gram-zh'
-docs_path = 'docs'
+embedding_model_name = '/home/searchgpt/pretrained_models/ernie-gram-zh'
+docs_path = '/home/searchgpt/yq/Knowledge-ChatGLM/docs'
 embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
 
 docs = []
@@ -22,7 +22,7 @@ vector_store.save_local('vector_store_local')
 search_result = vector_store.similarity_search_with_score(query='科比', k=2)
 print(search_result)
 
-loader = UnstructuredFileLoader(f'{docs_path}/added/科比.txt', mode="elements")
+loader = UnstructuredFileLoader(f'{docs_path}/added/马保国.txt', mode="elements")
 doc = loader.load()
 vector_store.add_documents(doc)
 print(doc)
