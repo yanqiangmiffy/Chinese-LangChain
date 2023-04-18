@@ -7,9 +7,10 @@
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
 
 ## 🚀 特性
-
-- 2023/04/17 支持多种文档上传与内容解析：pdf、docx，ppt等
-- 2023/04/17 支持知识增量更新
+- 🚀 2023/04/18 webui增加知识库选择功能
+- 🚀 2023/04/18 修复推理预测超时5s报错问题
+- 🎉 2023/04/17  支持多种文档上传与内容解析：pdf、docx，ppt等
+- 🎉 2023/04/17 支持知识增量更新
 
 [//]: # (- 支持检索结果与LLM生成结果对比)
 
