@@ -141,7 +141,9 @@ with block as demo:
                            embedding_model, state
                        ],
                        outputs=[message, chatbot, state, search])
-
+    gr.Markdown("""提醒：<br>
+            有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
+            """)
 demo.queue(concurrency_count=2).launch(
     server_name='0.0.0.0',
     server_port=8888,

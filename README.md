@@ -28,7 +28,6 @@
 欢迎多提建议、Bad cases，目前尚不完善，欢迎进群及时交流，也欢迎大家多提PR
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="300px">
 <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="300px">
->>>>>>> 19ea45c4520fb522e20bf579b9dc20024e648121
 
 ## ❤️引用
 
