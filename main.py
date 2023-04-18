@@ -1,7 +1,6 @@
 import os
 import shutil
 
-import gradio as gr
 from app_modules.presets import *
 from clc.langchain_application import LangChainApplication
 
@@ -93,6 +92,7 @@ def predict(input,
     search_text += web_content
     return '', history, history, search_text
 
+
 with open("assets/custom.css", "r", encoding="utf-8") as f:
     customCSS = f.read()
 with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
@@ -147,14 +147,20 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
                         outputs=None)
         with gr.Column(scale=4):
             with gr.Row():
-                with gr.Column(scale=4):
-                    chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
-                    message = gr.Textbox(label='请输入问题')
-                    with gr.Row():
-                        clear_history = gr.Button("🧹 清除历史对话")
-                        send = gr.Button("🚀 发送")
-                with gr.Column(scale=2):
-                    search = gr.Textbox(label='搜索结果')
+                chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
+            with gr.Row():
+                message = gr.Textbox(label='请输入问题')
+            with gr.Row():
+                clear_history = gr.Button("🧹 清除历史对话")
+                send = gr.Button("🚀 发送")
+            with gr.Row():
+                gr.Markdown("""提醒：<br>
+                                        [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
+                                        有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
+                                        """)
+        with gr.Column(scale=2):
+            search = gr.Textbox(label='搜索结果')
+
         set_kg_btn.click(
             set_knowledge,
             show_progress=True,
@@ -185,10 +191,7 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
                            state
                        ],
                        outputs=[message, chatbot, state, search])
-    gr.Markdown("""提醒：<br>
-            [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
-            有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
-            """)
+
 demo.queue(concurrency_count=2).launch(
     server_name='0.0.0.0',
     server_port=8888,
