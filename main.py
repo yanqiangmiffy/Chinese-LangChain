@@ -2,7 +2,7 @@ import os
 import shutil
 
 import gradio as gr
-
+from app_modules.presets import *
 from clc.langchain_application import LangChainApplication
 
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
@@ -93,9 +93,9 @@ def predict(input,
     search_text += web_content
     return '', history, history, search_text
 
-
-block = gr.Blocks()
-with block as demo:
+with open("assets/custom.css", "r", encoding="utf-8") as f:
+    customCSS = f.read()
+with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
     gr.Markdown("""<h1><center>Chinese-LangChain</center></h1>
         <center><font size=3>
         </center></font>
@@ -132,7 +132,10 @@ with block as demo:
                                interactive=True)
             set_kg_btn = gr.Button("重新加载知识库")
 
-            use_web = gr.Radio(["使用", "不使用"], label="web search", info="是否使用网络搜索，使用时确保网络通常")
+            use_web = gr.Radio(["使用", "不使用"], label="web search",
+                               info="是否使用网络搜索，使用时确保网络通常",
+                               value="不使用"
+                               )
 
             file = gr.File(label="将文件上传到知识库库，内容要尽量匹配",
                            visible=True,

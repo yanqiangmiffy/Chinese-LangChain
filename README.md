@@ -47,3 +47,4 @@
 - webui参考：https://github.com/thomas-yanxin/LangChain-ChatGLM-Webui
 - knowledge问答参考：https://github.com/imClumsyPanda/langchain-ChatGLM
 - LLM模型：https://github.com/THUDM/ChatGLM-6B
+- CSS：https://huggingface.co/spaces/JohnSmith9982/ChuanhuChatGPT
