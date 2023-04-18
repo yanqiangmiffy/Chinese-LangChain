@@ -2,6 +2,8 @@
 
 > Chinese-LangChain：中文langchain项目，基于ChatGLM-6b+langchain实现本地化知识库检索与智能答案生成
 
+https://github.com/yanqiangmiffy/Chinese-LangChain
+
 俗称：小必应，Q.Talk，强聊，QiangTalk
 
 ## 🔥 效果演示
