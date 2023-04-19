@@ -4,8 +4,6 @@ import shutil
 from app_modules.presets import *
 from clc.langchain_application import LangChainApplication
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
-
 
 # 修改成自己的配置！！！
 class LangChainCFG:
