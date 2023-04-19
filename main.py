@@ -50,6 +50,7 @@ def set_knowledge(kg_name, history):
         application.source_service.load_vector_store(config.kg_vector_stores[kg_name])
         msg_status = f'{kg_name}知识库已成功加载'
     except Exception as e:
+        print(e)
         msg_status = f'{kg_name}知识库未成功加载'
     return history + [[None, msg_status]]
 
@@ -145,10 +146,7 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
                 value='模型问答',
                 interactive=True)
 
-            kg_name = gr.Radio(['中文维基百科',
-                                '大规模金融研报知识图谱',
-                                '初始化知识库'
-                                ],
+            kg_name = gr.Radio(list(config.kg_vector_stores.keys()),
                                label="知识库",
                                value=None,
                                info="使用知识库问答，请加载知识库",
