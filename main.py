@@ -192,6 +192,7 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
 
 demo.queue(concurrency_count=2).launch(
     server_name='0.0.0.0',
+    server_port=8888,
     share=False,
     show_error=True,
     debug=True,

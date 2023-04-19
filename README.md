@@ -50,7 +50,7 @@ cchardet
 ### 启动Gradio
 
 ```shell
-python app.py
+python main.py
 ```
 
 ## 🚀 特性

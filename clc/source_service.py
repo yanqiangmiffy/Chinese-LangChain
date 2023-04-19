@@ -57,10 +57,10 @@ class SourceService(object):
 
     def search_web(self, query):
 
-        SESSION.proxies = {
-            "http": f"socks5h://localhost:7890",
-            "https": f"socks5h://localhost:7890"
-        }
+        # SESSION.proxies = {
+        #     "http": f"socks5h://localhost:7890",
+        #     "https": f"socks5h://localhost:7890"
+        # }
         results = ddg(query)
         web_content = ''
         if results:
