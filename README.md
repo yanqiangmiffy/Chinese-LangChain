@@ -19,8 +19,8 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 
 ## 🔥 效果演示
 
-![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
-![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo_new.png)
+![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demos/v1.png)
+![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demos/v3.png)
 
 ## 🚋 使用教程
 
