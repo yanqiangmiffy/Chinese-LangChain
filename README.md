@@ -23,6 +23,7 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 - 运行内存：32g
 
 ### 运行环境
+
 ```text
 langchain
 gradio
@@ -35,6 +36,13 @@ mdtex2html
 chardet
 cchardet
 ```
+
+### 启动Gradio
+
+```shell
+python app.py
+```
+
 ## 🚀 特性
 
 - 📝 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
@@ -81,8 +89,6 @@ cchardet
 <figure class="third">
     <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="180px"><img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="180px" height="270px"><img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/personal.jpg" width="180px">
 </figure>
-
-
 
 ## ❤️引用
 
