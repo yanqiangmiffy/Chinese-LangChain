@@ -10,7 +10,8 @@
 @description: - emoji：https://emojixd.com/pocket/science
 """
 import os
-
+import pandas as pd
+from langchain.schema import Document
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
@@ -19,6 +20,9 @@ from tqdm import tqdm
 embedding_model_name = '/root/pretrained_models/text2vec-large-chinese'
 docs_path = '/root/GoMall/Knowledge-ChatGLM/cache/financial_research_reports'
 embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
+
+
+# Wikipedia数据处理
 
 # docs = []
 
@@ -30,13 +34,46 @@ embeddings = HuggingFaceEmbeddings(model_name=embedding_model_name)
 # vector_store = FAISS.from_documents(docs, embeddings)
 # vector_store.save_local('cache/zh_wikipedia/')
 
+
+
 docs = []
 
-for doc in tqdm(os.listdir(docs_path)):
-    if doc.endswith('.txt'):
-        # print(doc)
-        loader = UnstructuredFileLoader(f'{docs_path}/{doc}', mode="elements")
-        doc = loader.load()
-        docs.extend(doc)
+with open('cache/zh_wikipedia/wiki.zh-sim-cleaned.txt', 'r', encoding='utf-8') as f:
+    for idx, line in tqdm(enumerate(f.readlines())):
+        metadata = {"source": f'doc_id_{idx}'}
+        docs.append(Document(page_content=line.strip(), metadata=metadata))
+
 vector_store = FAISS.from_documents(docs, embeddings)
-vector_store.save_local('cache/financial_research_reports')
+vector_store.save_local('cache/zh_wikipedia/')
+
+
+# 金融研报数据处理
+# docs = []
+#
+# for doc in tqdm(os.listdir(docs_path)):
+#     if doc.endswith('.txt'):
+#         # print(doc)
+#         loader = UnstructuredFileLoader(f'{docs_path}/{doc}', mode="elements")
+#         doc = loader.load()
+#         docs.extend(doc)
+# vector_store = FAISS.from_documents(docs, embeddings)
+# vector_store.save_local('cache/financial_research_reports')
+
+
+# 英雄联盟
+
+docs = []
+
+lol_df = pd.read_csv('cache/lol/champions.csv')
+# lol_df.columns = ['id', '英雄简称', '英雄全称', '出生地', '人物属性', '英雄类别', '英雄故事']
+print(lol_df)
+
+for idx, row in lol_df.iterrows():
+    metadata = {"source": f'doc_id_{idx}'}
+    text = ' '.join(row.values)
+    # for col in ['英雄简称', '英雄全称', '出生地', '人物属性', '英雄类别', '英雄故事']:
+    #     text += row[col]
+    docs.append(Document(page_content=text, metadata=metadata))
+
+vector_store = FAISS.from_documents(docs, embeddings)
+vector_store.save_local('cache/lol/')

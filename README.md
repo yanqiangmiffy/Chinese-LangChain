@@ -11,8 +11,15 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo.png)
 ![](https://github.com/yanqiangmiffy/Chinese-LangChain/blob/master/images/web_demo_new.png)
 
+## 🚋 使用教程
+
+- 选择知识库询问相关领域的问题
+
+## 🏗️ 部署教程
+
 ## 🚀 特性
 
+- 📝 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
 - 🐯 2023/04/19 引入ChuanhuChatGPT皮肤
 - 📱 2023/04/19 增加web search功能，需要确保网络畅通！(感谢[@wanghao07456](https://github.com/wanghao07456),提供的idea)
 - 📚 2023/04/18 webui增加知识库选择功能
@@ -23,6 +30,14 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 [//]: # (- 支持检索结果与LLM生成结果对比)
 
 ## 🧰 知识库
+
+### 构建知识库
+
+- Wikipedia-zh
+
+> 详情见：corpus/zh_wikipedia/README.md
+
+### 知识库向量索引
 
 | 知识库数据  |FAISS向量|
 |--------|----|
