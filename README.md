@@ -22,6 +22,19 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 - 显存：12g，实际运行9g够了
 - 运行内存：32g
 
+### 运行环境
+```text
+langchain
+gradio
+transformers
+sentence_transformers
+faiss-cpu
+unstructured
+duckduckgo_search
+mdtex2html
+chardet
+cchardet
+```
 ## 🚀 特性
 
 - 📝 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
@@ -44,9 +57,10 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 
 ### 知识库向量索引
 
-| 知识库数据  |FAISS向量|
-|--------|----|
-|💹 [大规模金融研报知识图谱](http://openkg.cn/dataset/fr2kg)|链接：https://pan.baidu.com/s/1FcIH5Fi3EfpS346DnDu51Q?pwd=ujjv 提取码：ujjv |
+| 知识库数据                                            |FAISS向量|
+|--------------------------------------------------|----|
+| 截止去年九月的130w条中文维基百科处理结果和对应faiss向量文件 @[yubuyuabc](https://github.com/yubuyuabc)         |链接：https://pan.baidu.com/s/1Yls_Qtg15W1gneNuFP9O_w?pwd=exij 提取码：exij|
+| 💹 [大规模金融研报知识图谱](http://openkg.cn/dataset/fr2kg) |链接：https://pan.baidu.com/s/1FcIH5Fi3EfpS346DnDu51Q?pwd=ujjv 提取码：ujjv |
 
 ## 🔨 TODO
 
