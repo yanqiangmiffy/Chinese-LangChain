@@ -1,5 +1,5 @@
 :root {
-    --chatbot-color-light: #F3F3F3;
+    --chatbot-color-light: rgba(255, 255, 255, 0.08);
     --chatbot-color-dark: #121111;
 }
 
@@ -40,7 +40,7 @@ ol:not(.options), ul:not(.options) {
     color: #000000 !important;
 }
 [data-testid = "bot"] {
-    background-color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
 }
 [data-testid = "user"] {
     background-color: #95EC69 !important;
@@ -49,7 +49,7 @@ ol:not(.options), ul:not(.options) {
 /* Dark mode */
 .dark #chuanhu_chatbot {
     background-color: var(--chatbot-color-dark) !important;
-    color: #FFFFFF !important;
+    color: rgba(255, 255, 255, 0.08) !important;
 }
 .dark [data-testid = "bot"] {
     background-color: #2C2C2C !important;

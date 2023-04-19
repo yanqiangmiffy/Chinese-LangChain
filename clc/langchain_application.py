@@ -9,10 +9,10 @@
 @software: PyCharm
 @description: coding..
 """
-
 from langchain.chains import RetrievalQA
 from langchain.prompts.prompt import PromptTemplate
 
+from clc.config import LangChainCFG
 from clc.gpt_service import ChatGLMService
 from clc.source_service import SourceService
 
@@ -23,15 +23,16 @@ class LangChainApplication(object):
         self.llm_service = ChatGLMService()
         self.llm_service.load_model(model_name_or_path=self.config.llm_model_name)
         self.source_service = SourceService(config)
-        if self.config.kg_vector_stores is None:
-            print("init a source vector store")
-            self.source_service.init_source_vector()
-        else:
-            print("load zh_wikipedia source vector store ")
-            try:
-                self.source_service.load_vector_store(self.config.kg_vector_stores['初始化知识库'])
-            except Exception as e:
-                self.source_service.init_source_vector()
+
+        # if self.config.kg_vector_stores is None:
+        #     print("init a source vector store")
+        #     self.source_service.init_source_vector()
+        # else:
+        #     print("load zh_wikipedia source vector store ")
+        #     try:
+        #         self.source_service.load_vector_store(self.config.kg_vector_stores['初始化知识库'])
+        #     except Exception as e:
+        #         self.source_service.init_source_vector()
 
     def get_knowledge_based_answer(self, query,
                                    history_len=5,
@@ -75,11 +76,22 @@ class LangChainApplication(object):
         result = knowledge_chain({"query": query})
         return result
 
-# if __name__ == '__main__':
-#     config = LangChainCFG()
-#     application = LangChainApplication(config)
-#     result = application.get_knowledge_based_answer('马保国是谁')
-#     print(result)
-#     application.source_service.add_document('/home/searchgpt/yq/Knowledge-ChatGLM/docs/added/马保国.txt')
-#     result = application.get_knowledge_based_answer('马保国是谁')
-#     print(result)
+    def get_llm_answer(self, query='', web_content=''):
+        if web_content:
+            prompt = f'基于网络检索内容：{web_content}，回答以下问题{query}'
+        else:
+            prompt = query
+        result = self.llm_service._call(prompt)
+        return result
+
+
+if __name__ == '__main__':
+    config = LangChainCFG()
+    application = LangChainApplication(config)
+    # result = application.get_knowledge_based_answer('马保国是谁')
+    # print(result)
+    # application.source_service.add_document('/home/searchgpt/yq/Knowledge-ChatGLM/docs/added/马保国.txt')
+    # result = application.get_knowledge_based_answer('马保国是谁')
+    # print(result)
+    result = application.get_llm_answer('马保国是谁')
+    print(result)

@@ -8,6 +8,7 @@ colorTo: yellow
 pinned: true
 app_file: app.py
 ---
+
 # Chinese-LangChain
 
 > Chinese-LangChain：中文langchain项目，基于ChatGLM-6b+langchain实现本地化知识库检索与智能答案生成
@@ -55,6 +56,8 @@ python main.py
 
 ## 🚀 特性
 
+- 📝 2023/04/20 支持模型问答与检索问答模式切换
+- 📝 2023/04/20 感谢HF官方提供免费算力，添加HuggingFace Spaces在线体验[[🤗 DEMO](https://huggingface.co/spaces/ChallengeHub/Chinese-LangChain)
 - 📝 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
 - 🐯 2023/04/19 引入ChuanhuChatGPT皮肤
 - 📱 2023/04/19 增加web search功能，需要确保网络畅通！(感谢[@wanghao07456](https://github.com/wanghao07456),提供的idea)
@@ -87,6 +90,7 @@ python main.py
 * [x] 支持加载不同知识库
 * [x] 支持检索结果与LLM生成结果对比
 * [ ] 支持检索生成结果与原始LLM生成结果对比
+* [ ] 支持模型问答与检索问答
 * [ ] 检索结果过滤与排序
 * [x] 互联网检索结果接入
 * [ ] 模型初始化有问题

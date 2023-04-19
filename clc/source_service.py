@@ -13,7 +13,6 @@
 import os
 
 from duckduckgo_search import ddg
-from duckduckgo_search.utils import SESSION
 from langchain.document_loaders import UnstructuredFileLoader
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
@@ -61,12 +60,16 @@ class SourceService(object):
         #     "http": f"socks5h://localhost:7890",
         #     "https": f"socks5h://localhost:7890"
         # }
-        results = ddg(query)
-        web_content = ''
-        if results:
-            for result in results:
-                web_content += result['body']
-        return web_content
+        try:
+            results = ddg(query)
+            web_content = ''
+            if results:
+                for result in results:
+                    web_content += result['body']
+            return web_content
+        except Exception as e:
+            print(f"网络检索异常:{query}")
+            return ''
 # if __name__ == '__main__':
 #     config = LangChainCFG()
 #     source_service = SourceService(config)
