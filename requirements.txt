@@ -8,3 +8,4 @@ duckduckgo_search
 mdtex2html
 chardet
 cchardet
+cpm_kernels
