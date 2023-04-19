@@ -56,9 +56,10 @@ python main.py
 
 ## 🚀 特性
 
-- 📝 2023/04/20 支持模型问答与检索问答模式切换
-- 📝 2023/04/20 感谢HF官方提供免费算力，添加HuggingFace Spaces在线体验[[🤗 DEMO](https://huggingface.co/spaces/ChallengeHub/Chinese-LangChain)
-- 📝 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
+- 🔭 2023/04/20 支持模型问答与检索问答模式切换
+- 💻 2023/04/20 感谢HF官方提供免费算力，添加HuggingFace
+  Spaces在线体验[[🤗 DEMO](https://huggingface.co/spaces/ChallengeHub/Chinese-LangChain)
+- 🧫 2023/04/19 发布45万Wikipedia的文本预处理语料以及FAISS索引向量
 - 🐯 2023/04/19 引入ChuanhuChatGPT皮肤
 - 📱 2023/04/19 增加web search功能，需要确保网络畅通！(感谢[@wanghao07456](https://github.com/wanghao07456),提供的idea)
 - 📚 2023/04/18 webui增加知识库选择功能
@@ -78,10 +79,11 @@ python main.py
 
 ### 知识库向量索引
 
-| 知识库数据                                            |FAISS向量|
-|--------------------------------------------------|----|
-| 截止去年九月的130w条中文维基百科处理结果和对应faiss向量文件 @[yubuyuabc](https://github.com/yubuyuabc)         |链接：https://pan.baidu.com/s/1Yls_Qtg15W1gneNuFP9O_w?pwd=exij 提取码：exij|
-| 💹 [大规模金融研报知识图谱](http://openkg.cn/dataset/fr2kg) |链接：https://pan.baidu.com/s/1FcIH5Fi3EfpS346DnDu51Q?pwd=ujjv 提取码：ujjv |
+| 知识库数据                                                                         | FAISS向量                                                              |
+|-------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| 中文维基百科截止4月份数据，45万                                                             | 链接：https://pan.baidu.com/s/1VQeA_dq92fxKOtLL3u3Zpg?pwd=l3pn 提取码：l3pn |
+| 截止去年九月的130w条中文维基百科处理结果和对应faiss向量文件 @[yubuyuabc](https://github.com/yubuyuabc) | 链接：https://pan.baidu.com/s/1Yls_Qtg15W1gneNuFP9O_w?pwd=exij 提取码：exij |
+| 💹 [大规模金融研报知识图谱](http://openkg.cn/dataset/fr2kg)                              | 链接：https://pan.baidu.com/s/1FcIH5Fi3EfpS346DnDu51Q?pwd=ujjv 提取码：ujjv |
 
 ## 🔨 TODO
 
