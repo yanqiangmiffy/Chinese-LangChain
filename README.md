@@ -6,6 +6,7 @@ emoji: 🚀
 colorFrom: yellow
 colorTo: yellow
 pinned: true
+app_file: app.py
 ---
 # Chinese-LangChain
 
