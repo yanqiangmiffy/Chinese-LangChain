@@ -58,12 +58,13 @@ https://github.com/yanqiangmiffy/Chinese-LangChain
 ## 交流
 
 欢迎多提建议、Bad cases，目前尚不完善，欢迎进群及时交流，也欢迎大家多提PR</br>
+<figure class="third">
+    <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="200px">
+    <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="200px" height="270px">
+    <img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/personal.jpg" width="200px">
+</figure>
 
-<img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/ch.jpg" width="200px">
 
-<img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/chatgroup.jpg" width="200px">
-
-<img src="https://raw.githubusercontent.com/yanqiangmiffy/Chinese-LangChain/master/images/personal.jpg" width="200px">
 
 ## ❤️引用
 
