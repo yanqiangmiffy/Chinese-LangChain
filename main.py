@@ -166,11 +166,11 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
             with gr.Row():
                 clear_history = gr.Button("🧹 清除历史对话")
                 send = gr.Button("🚀 发送")
-            with gr.Row():
-                gr.Markdown("""提醒：<br>
-                                        [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
-                                        有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
-                                        """)
+            # with gr.Row():
+            #     gr.Markdown("""提醒：<br>
+            #                             [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
+            #                             有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
+            #                             """)
         with gr.Column(scale=2):
             search = gr.Textbox(label='搜索结果')
 
