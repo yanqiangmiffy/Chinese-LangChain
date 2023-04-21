@@ -56,6 +56,7 @@ python main.py
 
 ## 🚀 特性
 
+- 🚀 2023/04/22 支持模型多机多卡推理
 - 🔭 2023/04/20 支持模型问答与检索问答模式切换
 - 💻 2023/04/20 感谢HF官方提供免费算力，添加HuggingFace
   Spaces在线体验[[🤗 DEMO](https://huggingface.co/spaces/ChallengeHub/Chinese-LangChain)
