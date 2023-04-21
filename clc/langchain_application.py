@@ -21,8 +21,8 @@ class LangChainApplication(object):
     def __init__(self, config):
         self.config = config
         self.llm_service = ChatGLMService()
-        # self.llm_service.load_model(model_name_or_path=self.config.llm_model_name)
-        self.llm_service.load_model_on_gpus(model_name_or_path=self.config.llm_model_name,num_gpus=self.config.n_gpus)
+        self.llm_service.load_model(model_name_or_path=self.config.llm_model_name)
+        # self.llm_service.load_model_on_gpus(model_name_or_path=self.config.llm_model_name,num_gpus=self.config.n_gpus)
         self.source_service = SourceService(config)
 
         # if self.config.kg_vector_stores is None:
