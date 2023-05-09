@@ -7,14 +7,16 @@ from clc.langchain_application import LangChainApplication
 
 # 修改成自己的配置！！！
 class LangChainCFG:
-    llm_model_name = 'THUDM/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
-    embedding_model_name = 'GanymedeNil/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
+    llm_model_name = '/home/searchgpt/pretrained_models/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
+    embedding_model_name = '/home/searchgpt/pretrained_models/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
     vector_store_path = './cache'
     docs_path = './docs'
     kg_vector_stores = {
-        '中文维基百科': './cache/zh_wikipedia',
-        '大规模金融研报': './cache/financial_research_reports',
+        # '中文维基百科': './cache/zh_wikipedia',
+        # '大规模金融研报': './cache/financial_research_reports',
         '初始化': './cache',
+        '英雄联盟': './cache/lol',
+        '奥特曼（待构建）': './cache/lol',
     }  # 可以替换成自己的知识库，如果没有需要设置为None
     # kg_vector_stores=None
     patterns = ['模型问答', '知识库问答']  #
@@ -77,8 +79,11 @@ def predict(input,
     search_text = ''
     if use_pattern == '模型问答':
         result = application.get_llm_answer(query=input, web_content=web_content)
+        result=result.replace('chatglm-6b','GoGPT').replace('ChatGLM-6b','GoGPT')
         history.append((input, result))
         search_text += web_content
+
+        print('', history, history, search_text)
         return '', history, history, search_text
 
     else:
@@ -98,13 +103,18 @@ def predict(input,
         print(search_text)
         search_text += "----------【网络检索内容】-----------\n"
         search_text += web_content
+        print('', history, history, search_text)
+
         return '', history, history, search_text
 
 
 with open("assets/custom.css", "r", encoding="utf-8") as f:
     customCSS = f.read()
-with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
-    gr.Markdown("""<h1><center>Chinese-LangChain</center></h1>
+with gr.Blocks(
+        # css=customCSS,
+        # theme=small_and_beautiful_theme
+) as demo:
+    gr.Markdown("""<h1><center>SearchGPT</center></h1>
         <center><font size=3>
         </center></font>
         """)
@@ -116,25 +126,35 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
                 "text2vec-base"
             ],
                 label="Embedding model",
-                value="text2vec-base")
+                value="text2vec-base",
+                visible=False
+
+            )
 
             large_language_model = gr.Dropdown(
                 [
                     "ChatGLM-6B-int4",
                 ],
                 label="large language model",
-                value="ChatGLM-6B-int4")
+                value="ChatGLM-6B-int4",
+                visible=False
+            )
 
             top_k = gr.Slider(1,
                               20,
                               value=4,
                               step=1,
                               label="检索top-k文档",
-                              interactive=True)
+                              interactive=True,
+                              visible=False
+
+                              )
 
             use_web = gr.Radio(["使用", "不使用"], label="web search",
                                info="是否使用网络搜索，使用时确保网络通常",
-                               value="不使用"
+                               value="不使用",
+                               visible=False
+
                                )
             use_pattern = gr.Radio(
                 [
@@ -159,17 +179,17 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
 
         with gr.Column(scale=4):
             with gr.Row():
-                chatbot = gr.Chatbot(label='Chinese-LangChain').style(height=400)
+                chatbot = gr.Chatbot(label='SearchGPT').style(height=400)
             with gr.Row():
                 message = gr.Textbox(label='请输入问题')
             with gr.Row():
                 clear_history = gr.Button("🧹 清除历史对话")
                 send = gr.Button("🚀 发送")
-            with gr.Row():
-                gr.Markdown("""提醒：<br>
-                                        [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
-                                        有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
-                                        """)
+            # with gr.Row():
+            #     gr.Markdown("""提醒：<br>
+            #                             [Chinese-LangChain](https://github.com/yanqiangmiffy/Chinese-LangChain) <br>
+            #                             有任何使用问题[Github Issue区](https://github.com/yanqiangmiffy/Chinese-LangChain)进行反馈. <br>
+            #                             """)
         with gr.Column(scale=2):
             search = gr.Textbox(label='搜索结果')
 
@@ -221,5 +241,5 @@ demo.queue(concurrency_count=2).launch(
     show_error=True,
     debug=True,
     enable_queue=True,
-    inbrowser=True,
+    inbrowser=False,
 )
