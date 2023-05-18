@@ -1,3 +1,6 @@
 .idea
 cache
 docs/zh_wikipedia
+**/__pycache__
+**/*.swp
+**/*.pyc
