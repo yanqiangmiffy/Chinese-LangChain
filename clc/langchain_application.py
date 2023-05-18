@@ -12,7 +12,7 @@
 from langchain.chains import RetrievalQA
 from langchain.prompts.prompt import PromptTemplate
 
-from clc.config import LangChainCFG
+from config import LangChainCFG
 from clc.gpt_service import ChatGLMService
 from clc.source_service import SourceService
 
