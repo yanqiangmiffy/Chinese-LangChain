@@ -121,3 +121,9 @@ python main.py
 - knowledge问答参考：https://github.com/imClumsyPanda/langchain-ChatGLM
 - LLM模型：https://github.com/THUDM/ChatGLM-6B
 - CSS：https://huggingface.co/spaces/JohnSmith9982/ChuanhuChatGPT
+
+
+
+## ⭐️ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yanqiangmiffy/Chinese-LangChain&type=Date)](https://star-history.com/#yanqiangmiffy/Chinese-LangChain&Date)
