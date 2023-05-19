@@ -55,7 +55,7 @@ python main.py
 ```
 
 ## 🚀 特性
-- 🚀 2023/05/19 [yanlijun573](https://github.com/yanlijun573)提供streamlit分支
+- 🚀 2023/05/19 [yanlijun573](https://github.com/yanlijun573)提供[streamlit](https://github.com/yanqiangmiffy/Chinese-LangChain/tree/streamlit)分支
 - 🚀 2023/04/22 支持模型多机多卡推理
 - 🔭 2023/04/20 支持模型问答与检索问答模式切换
 - 💻 2023/04/20 感谢HF官方提供免费算力，添加HuggingFace
