@@ -26,8 +26,9 @@ for wiki_doc in tqdm(os.listdir(basedir)):
             data['title'] = convert(data['title'], 'zh-cn')
             data['text'] = convert(data['text'], 'zh-cn')
             # print(data)
-            text = data['title'] + ' ' + data['title']
-            corpus_file.write(text + '\n')
+            text = data['title'] + ' ' + data['text']
+            corpus_file.write(''.join(text.split('\n')) + '\n')
             cnt += 1
 print("文档个数：{}".format(cnt))
+# 文档个数：2521667
 corpus_file.close()
