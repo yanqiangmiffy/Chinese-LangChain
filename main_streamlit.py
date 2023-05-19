@@ -27,7 +27,7 @@ class LangChainCFG:
     patterns = ['模型问答', '知识库问答']  #
     n_gpus=1
     # 请输入GOOLGE SERPER API KEY，免费账号申请地址：https://serper.dev/
-    serper_api_key = "8102810aa7731f849ecb415acc225a51f906c66f"
+    serper_api_key = "CHANGE_TO_YOUR_KEY"
     # 对搜索结果分析的词向量文件
     em_data_dir = "/root/emdata/"
 

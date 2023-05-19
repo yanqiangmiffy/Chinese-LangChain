@@ -55,12 +55,12 @@ python main.py
 ```
 
 ### 新增支持谷歌搜索
-- 下载搜索功能需要安装的库，放置在固定目录，并在配置项em_data_dir中配置该目录
+下载搜索功能需要安装的库，放置在固定目录，并在配置项em_data_dir中配置该目录
   wget https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.en.300.bin.gz
   wget https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.zh.300.bin.gz
-- 通过pip安装以下文件
+通过pip安装以下文件
   https://github.com/explosion/spacy-models/releases/tag/zh_core_web_sm-3.5.0
-	https://github.com/explosion/spacy-models/releases/tag/en_core_web_sm-3.5.0
+  https://github.com/explosion/spacy-models/releases/tag/en_core_web_sm-3.5.0
 
 
 ### 启动streamlit
