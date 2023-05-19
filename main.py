@@ -9,6 +9,7 @@ from clc.langchain_application import LangChainApplication
 # 修改成自己的配置！！！
 class LangChainCFG:
     llm_model_name = 'THUDM/chatglm-6b-int4-qe'  # 本地模型文件 or huggingface远程仓库
+    # llm_model_name = 'THUDM/chatglm-6b'  # 本地模型文件 or huggingface远程仓库
     embedding_model_name = 'GanymedeNil/text2vec-large-chinese'  # 检索模型文件 or huggingface远程仓库
     vector_store_path = './cache'
     docs_path = './docs'
@@ -20,7 +21,10 @@ class LangChainCFG:
     # kg_vector_stores=None
     patterns = ['模型问答', '知识库问答']  #
     n_gpus=1
-
+    # 请输入GOOLGE SERPER API KEY，免费账号申请地址：https://serper.dev/
+    serper_api_key = "CHANGE_TO_YOUR_KEY"
+    # 对搜索结果分析的词向量文件
+    em_data_dir = "/root/emdata/"
 
 config = LangChainCFG()
 application = LangChainApplication(config)
@@ -78,8 +82,10 @@ def predict(input,
     else:
         web_content = ''
     search_text = ''
-    if use_pattern == '模型问答':
-        result = application.get_llm_answer(query=input, web_content=web_content)
+    results = ''
+
+    if use_pattern == '模型问答':       
+        result = application.get_llm_answer(query=input, web_content=web_content, history=history, use_stream=0)
         history.append((input, result))
         search_text += web_content
         return '', history, history, search_text
@@ -106,7 +112,7 @@ def predict(input,
 
 with open("assets/custom.css", "r", encoding="utf-8") as f:
     customCSS = f.read()
-with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
+with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:     
     gr.Markdown("""<h1><center>Chinese-LangChain</center></h1>
         <center><font size=3>
         </center></font>
@@ -123,7 +129,7 @@ with gr.Blocks(css=customCSS, theme=small_and_beautiful_theme) as demo:
 
             large_language_model = gr.Dropdown(
                 [
-                    "ChatGLM-6B-int4",
+                    "ChatGLM-6B",
                 ],
                 label="large language model",
                 value="ChatGLM-6B-int4")

@@ -36,29 +36,36 @@ class LangChainApplication(object):
         #         self.source_service.init_source_vector()
 
     def get_knowledge_based_answer(self, query,
-                                   history_len=5,
-                                   temperature=0.1,
-                                   top_p=0.9,
-                                   top_k=4,
-                                   web_content='',
-                                   chat_history=[]):
+                                history_len=5,
+                                temperature=0.1,
+                                top_p=0.9,
+                                top_k=4,
+                                web_content='',
+                                chat_history=[]):
         if web_content:
-            prompt_template = f"""基于以下已知信息，简洁和专业的来回答用户的问题。
+            prompt = f'基于网络检索内容：{web_content}, 进行简洁和专业的文本内容摘要'
+            llm_web_content = self.llm_service._call_internal(prompt)
+            print('--------网络检索内容摘要----------')            
+            print(llm_web_content)
+
+            prompt_template = ("综合已知知识库内容和已知网络检索内容，优先使用已知知识库内容，简洁和专业的来回答用户的问题。"
+                            "如果无法从中得到答案，请说 '根据已知信息无法回答该问题' 或 '没有提供足够的相关信息'，不允许在答案中添加编造成分，答案请使用中文。"
+                            "已知网络检索内容：" + llm_web_content + 
+                            """已知知识库内容:\n{context}\n问题:\n{question}""")
+
+        else:
+            prompt_template = """基于以下已知知识库内容，简洁和专业的来回答用户的问题。
                                 如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
-                                已知网络检索内容：{web_content}""" + """
-                                已知内容:
+                                已知知识库内容:
                                 {context}
                                 问题:
                                 {question}"""
-        else:
-            prompt_template = """基于以下已知信息，简洁和专业的来回答用户的问题。
-                                            如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
-                                            已知内容:
-                                            {context}
-                                            问题:
-                                            {question}"""
+        print('------------  prompt_template -----------')
+        print(prompt_template)
+
         prompt = PromptTemplate(template=prompt_template,
-                                input_variables=["context", "question"])
+                                input_variables=["context", "question"],)
+        
         self.llm_service.history = chat_history[-history_len:] if history_len > 0 else []
 
         self.llm_service.temperature = temperature
@@ -77,12 +84,18 @@ class LangChainApplication(object):
         result = knowledge_chain({"query": query})
         return result
 
-    def get_llm_answer(self, query='', web_content=''):
+    def get_llm_answer(self, query='', web_content='', history=None, use_stream=0):
         if web_content:
-            prompt = f'基于网络检索内容：{web_content}，回答以下问题{query}'
+            # prompt = f'基于网络检索内容：{web_content}，回答以下问题{query}'
+            prompt = f'基于网络检索内容：{web_content}, 进行简洁和专业的文本内容摘要，然后再基于文本内容摘要，回答以下问题{query}'
         else:
             prompt = query
-        result = self.llm_service._call(prompt)
+        print('------------  prompt -----------')
+        print(prompt)
+        if use_stream:
+            result = self.llm_service._callStream(prompt, history)
+        else:
+            result = self.llm_service._call(prompt)
         return result
 
 

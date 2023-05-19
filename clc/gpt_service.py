@@ -35,6 +35,7 @@ class ChatGLMService(LLM):
     def _llm_type(self) -> str:
         return "ChatGLM"
 
+    # 非流式调用，langchain也调用这个函数
     def _call(self,
               prompt: str,
               stop: Optional[List[str]] = None) -> str:
@@ -47,8 +48,42 @@ class ChatGLMService(LLM):
         )
         if stop is not None:
             response = enforce_stop_tokens(response, stop)
-        self.history = self.history + [[None, response]]
+        self.history = self.history + [[prompt, response]]
         return response
+    
+    # 内部调用，不记录历史
+    def _call_internal(self,
+              prompt: str,
+              stop: Optional[List[str]] = None) -> str:
+        response, _ = self.model.chat(
+            self.tokenizer,
+            prompt,
+            history=self.history,
+            max_length=self.max_token,
+            temperature=self.temperature,
+        )
+        if stop is not None:
+            response = enforce_stop_tokens(response, stop)
+        return response
+
+    # 流式调用
+    def _callStream(self,
+              prompt: str,
+              history: None,
+              stop: Optional[List[str]] = None) -> str:  
+        for response, _history in self.model.stream_chat(
+            self.tokenizer,
+            prompt,
+            history,
+            max_length=self.max_token,
+            temperature=self.temperature,
+            ):
+            # if stop is not None:
+            #    response = enforce_stop_tokens(response, stop)
+            # self.history = self.history + [[None, response]]                        
+            self.history = _history
+            yield response                
+
 
     def load_model(self,
                    model_name_or_path: str = "THUDM/chatglm-6b"):
@@ -56,6 +91,7 @@ class ChatGLMService(LLM):
             model_name_or_path,
             trust_remote_code=True
         )
+        print("Load model name:", model_name_or_path)
         self.model = AutoModel.from_pretrained(model_name_or_path, trust_remote_code=True).half().cuda()
         self.model = self.model.eval()
 
