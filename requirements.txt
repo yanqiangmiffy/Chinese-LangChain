@@ -10,3 +10,11 @@ chardet
 cchardet
 cpm_kernels
 accelerate
+google-api-python-client
+spacy
+pytextrank
+fasttext
+ngram
+streamlit_chat
+pdf2image
+pytesseract
